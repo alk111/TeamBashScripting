@@ -53,51 +53,34 @@ else
 	exit 1
 fi
 
-
-
 #step2:creating directory
 
 echo Creating directory
-
 value=$(mkdir test1 )
-
 echo $value test1 directory create successfully ..!!!
 
 #step3:copy the nginx and apache log files in directory
 
 echo "Copy file in the nginx/apache log files in the directory"
-
 cp -r /var/log/nginx test1 
 cp -r /var/log/apache2 test1
-
 echo Copy file successfully !!
 
 #step4:archieve and compress log files
 
-#echo "Tar and Archive the log files"
+echo tar the apache2 and nginx log file
+tar -cvzf nginx-$(date "+%Y.%m.%d-%H.%M.%S").tar.gz test1/nginx
+echo you nginx file tar and compress successfullly
 
-#value=$(tar -cvzf nginx.tar.gz test1/nginx/)
+tar -cvzf apache2-$(date "+%Y.%m.%d-%H.%M.%S").tar.gz test1/apache2
+echo you apache file tar and compress successfullly
 
-#echo $value your apache log file it tar and compress successfully ..
-
-#echo "tar and archive the log files"
-
-#value=$(tar -cvzf apache2.tar.gz test1/apache2/)
-
-#echo $value your apache log file it tar and compress successfully .. !!
 
 #step5:Sends them to a directory "archives" in a different server by ssh
+
 echo your file are sending to different server.
 scp -r /home/mohini/archives prasad@10.0.60.248:
-
 echo your files are sending successfully
-
-
-echo tar the apache and nginx log file
-name=$(date)
-tar -zcvf $name.tar.gz test1/nginx/
-
-echo you file tar and compress  successfullly
 
 
 
